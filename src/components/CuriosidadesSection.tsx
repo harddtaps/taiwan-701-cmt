@@ -11,19 +11,19 @@ const curiosidades = [
 ];
 
 const CuriosidadesSection = () => (
-  <SectionWrapper id="curiosidades" title="Curiosidades" subtitle="Fatos surpreendentes sobre Taiwan que vão te impressionar" className="bg-muted">
+  <SectionWrapper title="Curiosidades" subtitle="Fatos surpreendentes sobre Taiwan que vão te impressionar">
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
       {curiosidades.map((c) => (
-        <div key={c.title} className="bg-background rounded-xl p-6 hover-lift border border-border">
+        <div key={c.title} className="glass-card p-6 hover-lift">
           <div className="text-4xl mb-3">{c.icon}</div>
           <h3 className="text-lg font-bold text-foreground mb-2 font-sans">{c.title}</h3>
           <p className="text-muted-foreground leading-relaxed text-sm">{c.text}</p>
         </div>
       ))}
     </div>
-    <div className="rounded-xl overflow-hidden shadow-lg">
-      <img src={nightMarket} alt="Mercado noturno em Taiwan" loading="lazy" width={1280} height={720} className="w-full h-64 md:h-80 object-cover" />
-      <div className="bg-background p-6 text-center">
+    <div className="rounded-xl overflow-hidden shadow-lg glass-card">
+      <img src={nightMarket} alt="Mercado noturno em Taiwan" loading="lazy" className="w-full h-64 md:h-80 object-cover" />
+      <div className="p-6 text-center">
         <p className="text-muted-foreground italic">Os mercados noturnos são o coração da vida social taiwanesa — comida, jogos e cultura em cada esquina.</p>
       </div>
     </div>
