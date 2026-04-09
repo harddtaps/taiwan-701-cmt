@@ -80,5 +80,4 @@ const Navbar = () => {
   );
 };
 
-import { useState } from "react";
 export default Navbar;
