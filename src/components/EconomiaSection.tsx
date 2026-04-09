@@ -15,7 +15,7 @@ const companies = [
 ];
 
 const EconomiaSection = () => (
-  <SectionWrapper id="economia" title="Economia" subtitle="Uma potência tecnológica de importância global">
+  <SectionWrapper title="Economia" subtitle="Uma potência tecnológica de importância global">
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
       {stats.map((s) => (
         <div key={s.label} className="glass-card p-5 text-center hover-lift">
@@ -30,7 +30,7 @@ const EconomiaSection = () => (
     <div className="grid md:grid-cols-2 gap-6">
       {companies.map((c) => (
         <div key={c.name} className="glass-card p-6 hover-lift">
-          <h4 className="text-xl font-bold text-secondary mb-2 font-sans">{c.name}</h4>
+          <h4 className="text-xl font-bold text-primary mb-2 font-sans">{c.name}</h4>
           <p className="text-muted-foreground leading-relaxed">{c.desc}</p>
         </div>
       ))}

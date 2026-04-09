@@ -1,65 +1,48 @@
-import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { id: "home", label: "Início" },
-  { id: "policia", label: "Forças Policiais" },
-  { id: "culinaria", label: "Culinária" },
-  { id: "curiosidades", label: "Curiosidades" },
-  { id: "cultura", label: "Cultura" },
-  { id: "historia", label: "História" },
-  { id: "economia", label: "Economia" },
+  { path: "/", label: "Início" },
+  { path: "/policia", label: "Forças Policiais" },
+  { path: "/culinaria", label: "Culinária" },
+  { path: "/curiosidades", label: "Curiosidades" },
+  { path: "/cultura", label: "Cultura" },
+  { path: "/historia", label: "História" },
+  { path: "/economia", label: "Economia" },
 ];
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false);
-  };
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
-          : "bg-transparent"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md shadow-lg border-b border-border">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
-        <button onClick={() => scrollTo("home")} className="font-bold text-xl tracking-tight">
-          <span className="text-primary">🇹🇼</span>{" "}
-          <span className={scrolled ? "text-foreground" : "text-primary-foreground"}>Taiwan</span>
-        </button>
+        <Link to="/" className="font-bold text-xl tracking-tight flex items-center gap-2">
+          <span className="text-primary">🇹🇼</span>
+          <span className="text-foreground">Taiwan</span>
+        </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex gap-1">
+        <div className="hidden lg:flex gap-1">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollTo(item.id)}
+            <Link
+              key={item.path}
+              to={item.path}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                scrolled
-                  ? "text-foreground hover:bg-muted"
-                  : "text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                location.pathname === item.path
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground hover:bg-muted"
               }`}
             >
               {item.label}
-            </button>
+            </Link>
           ))}
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className={`md:hidden p-2 rounded-lg ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+          className="lg:hidden p-2 rounded-lg text-foreground"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileOpen ? (
@@ -73,16 +56,21 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border animate-fade-in">
+        <div className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border animate-fade-in">
           <div className="container mx-auto px-4 py-3 flex flex-col gap-1">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className="text-left px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors"
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileOpen(false)}
+                className={`text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  location.pathname === item.path
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-muted"
+                }`}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
@@ -91,4 +79,5 @@ const Navbar = () => {
   );
 };
 
+import { useState } from "react";
 export default Navbar;
